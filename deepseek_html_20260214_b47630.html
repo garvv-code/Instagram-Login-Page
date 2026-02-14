@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Instagram login page clone</title>
+  <!-- Font Awesome 5 (free) for the lock icon and other subtle icons -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: #fafafa;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      max-width: 350px;
+      margin: 20px auto;
+    }
+
+    /* main login card (white background, border) */
+    .login-card {
+      background-color: #ffffff;
+      border: 1px solid #dbdbdb;
+      border-radius: 1px;
+      padding: 40px 40px 30px 40px;
+      width: 100%;
+      margin-bottom: 10px;
+    }
+
+    /* instagram logo */
+    .logo {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .logo i {
+      font-size: 42px;
+      color: #262626;
+    }
+
+    .logo .logo-text {
+      font-family: 'Instagram Sans Script', 'Segoe UI', cursive;
+      font-size: 38px;
+      font-weight: 400;
+      color: #262626;
+      letter-spacing: -1px;
+    }
+
+    /* fallback for logo - use standard font with a custom look */
+    .logo .fallback-logo {
+      font-size: 40px;
+      font-weight: 350;
+      font-family: 'Instagram Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      color: #262626;
+      line-height: 1;
+    }
+
+    /* form fields */
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .input-field {
+      width: 100%;
+      padding: 12px 9px;
+      background-color: #fafafa;
+      border: 1px solid #dbdbdb;
+      border-radius: 3px;
+      font-size: 12px;
+      outline: none;
+    }
+
+    .input-field:focus {
+      border-color: #a8a8a8;
+      background-color: #ffffff;
+    }
+
+    .input-field::placeholder {
+      color: #8e8e8e;
+      font-size: 12px;
+    }
+
+    /* login button */
+    .login-btn {
+      background-color: #0095f6;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 14px;
+      padding: 9px 16px;
+      margin-top: 12px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .login-btn:disabled {
+      background-color: #b2dffc;
+      cursor: default;
+    }
+
+    /* divider OR */
+    .divider {
+      display: flex;
+      align-items: center;
+      margin: 18px 0 22px;
+      color: #8e8e8e;
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .divider-line {
+      flex: 1;
+      height: 1px;
+      background-color: #dbdbdb;
+    }
+
+    .divider-text {
+      margin: 0 18px;
+    }
+
+    /* facebook login */
+    .fb-login {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: none;
+      border: none;
+      color: #385185;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      margin-bottom: 12px;
+      width: 100%;
+      padding: 6px 0;
+    }
+
+    .fb-login i {
+      font-size: 18px;
+      color: #385185;
+    }
+
+    /* forgot password */
+    .forgot-password {
+      text-align: center;
+      font-size: 12px;
+    }
+
+    .forgot-password a {
+      text-decoration: none;
+      color: #00376b;
+    }
+
+    /* signup card */
+    .signup-card {
+      background-color: #ffffff;
+      border: 1px solid #dbdbdb;
+      border-radius: 1px;
+      padding: 20px 40px;
+      width: 100%;
+      text-align: center;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    .signup-card p {
+      color: #262626;
+    }
+
+    .signup-card a {
+      text-decoration: none;
+      color: #0095f6;
+      font-weight: 600;
+    }
+
+    /* get the app section */
+    .app-section {
+      text-align: center;
+      width: 100%;
+    }
+
+    .app-section p {
+      font-size: 14px;
+      color: #262626;
+      margin-bottom: 16px;
+    }
+
+    .app-badges {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+    }
+
+    .app-badge-link {
+      display: inline-block;
+    }
+
+    .app-badge-image {
+      height: 40px;
+      width: auto;
+    }
+
+    /* meta footer links (like insta real page) */
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px 16px;
+      margin-top: 24px;
+      padding: 12px 16px;
+      font-size: 12px;
+      color: #8e8e8e;
+      max-width: 800px;
+    }
+
+    .footer-links a {
+      text-decoration: none;
+      color: #8e8e8e;
+      font-size: 12px;
+    }
+
+    .footer-links a:hover {
+      text-decoration: underline;
+    }
+
+    .footer-copyright {
+      font-size: 12px;
+      color: #8e8e8e;
+      margin: 8px 0 20px;
+      text-transform: uppercase;
+    }
+
+    /* just a tiny spacer */
+    .spacer {
+      height: 10px;
+    }
+
+    /* for the phone image preview (we won't include actual phone, but we can add a subtle background or not) */
+    /* we focus on login form accuracy */
+
+    /* mimic instagram disabled state for the button? in real page it's enabled only when fields filled, but we'll keep it always enabled for demo */
+    /* to look exactly like current instagram, i'll keep button blue, not disabled. (they enable after user types, but we keep simple) */
+    /* but many static clones just have it enabled. i'll keep as enabled */
+
+    /* additional micro detail: "or" divider is uppercase in real? actually it's "OR" all caps */
+    .divider-text {
+      text-transform: uppercase;
+      font-weight: 600;
+      color: #8e8e8e;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- main login box (card) -->
+    <div class="login-card">
+      <!-- logo area: use a combination of font awesome camera and text -->
+      <div class="logo">
+        <!-- using instagram-like logo: camera outline + "Instagram" -->
+        <i class="fas fa-camera-retro" style="transform: scale(0.9);"></i>
+        <div class="fallback-logo" style="margin-top: 2px;">Instagram</div>
+        <!-- subtle: actual current instagram login uses their brand font, but we approximate -->
+      </div>
+
+      <!-- login form -->
+      <form action="#" method="post">
+        <input type="text" class="input-field" placeholder="Phone number, username or email" value="">
+        <input type="password" class="input-field" placeholder="Password" value="">
+        <button type="submit" class="login-btn">Log in</button>
+      </form>
+
+      <!-- divider OR -->
+      <div class="divider">
+        <div class="divider-line"></div>
+        <div class="divider-text">OR</div>
+        <div class="divider-line"></div>
+      </div>
+
+      <!-- facebook login -->
+      <button class="fb-login" onclick="window.location.href='#';">
+        <i class="fab fa-facebook-square"></i>
+        <span>Log in with Facebook</span>
+      </button>
+
+      <!-- forgot password -->
+      <div class="forgot-password">
+        <a href="#">Forgot password?</a>
+      </div>
+    </div>
+
+    <!-- sign up card -->
+    <div class="signup-card">
+      <p>Don't have an account? <a href="#">Sign up</a></p>
+    </div>
+
+    <!-- get the app section -->
+    <div class="app-section">
+      <p>Get the app.</p>
+      <div class="app-badges">
+        <a href="#" class="app-badge-link" aria-label="Download on the App Store">
+          <!-- microsoft / meta actually use png, but we can use simple font awesome or svg-like placeholder with background. 
+          To keep it clean, we'll use simple placeholder divs styled with background approx like badges -->
+          <span style="display: inline-block; height: 40px; width: 120px; background-color: #000; border-radius: 8px; color: white; font-size: 10px; text-align: center; line-height: 40px;">App Store</span>
+        </a>
+        <a href="#" class="app-badge-link" aria-label="Get it on Google Play">
+          <span style="display: inline-block; height: 40px; width: 120px; background-color: #000; border-radius: 8px; color: white; font-size: 10px; text-align: center; line-height: 40px;">Google Play</span>
+        </a>
+        <!-- In a full professional clone you'd use images, but black rectangles with white text keep it minimal and neutral -->
+      </div>
+    </div>
+
+    <!-- footer links (exactly like instagram current page structure) -->
+    <div class="footer-links">
+      <a href="#">Meta</a>
+      <a href="#">About</a>
+      <a href="#">Blog</a>
+      <a href="#">Jobs</a>
+      <a href="#">Help</a>
+      <a href="#">API</a>
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+      <a href="#">Locations</a>
+      <a href="#">Instagram Lite</a>
+      <a href="#">Threads</a>
+      <a href="#">Contact Uploading & Non-Users</a>
+      <a href="#">Meta Verified</a>
+    </div>
+
+    <!-- final copyright / language etc -->
+    <div class="footer-copyright">
+      <span>English</span> © 2025 Instagram from Meta
+    </div>
+  </div>
+
+  <!-- tiny note: optional micro-interactions (disable submit? just for show) -->
+  <!-- The real instagram login page uses some javascript to enable button, but for static we leave button active -->
+  <script>
+    // tiny optional: simulate that the login button does nothing except alert (prevent actual submit)
+    document.querySelector('form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      alert('[demo] This is a static clone — no actual login.');
+    });
+
+    // also make facebook login button show alert
+    document.querySelector('.fb-login').addEventListener('click', (e) => {
+      e.preventDefault();
+      alert('[demo] Facebook login is not implemented in this clone.');
+    });
+
+    // Forgot password alert
+    document.querySelector('.forgot-password a').addEventListener('click', (e) => {
+      e.preventDefault();
+      alert('[demo] Password reset flow is not implemented.');
+    });
+
+    // signup link alert
+    document.querySelector('.signup-card a').addEventListener('click', (e) => {
+      e.preventDefault();
+      alert('[demo] Signup page is not implemented.');
+    });
+  </script>
+
+  <!-- subtle note: for maximum fidelity, we also mimic the hover effect on buttons etc. -->
+  <style>
+    .login-btn:hover {
+      background-color: #1877f2;
+    }
+    .fb-login:hover {
+      background-color: transparent;
+      opacity: 0.8;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    .app-badge-link span {
+      transition: opacity 0.2s;
+      background-color: #1e1e1e; /* dark but not pitch black, like store badges */
+      font-weight: 500;
+      letter-spacing: 0.3px;
+    }
+    .app-badge-link span:hover {
+      opacity: 0.8;
+    }
+    /* make footer copyright look the same as real */
+    .footer-copyright {
+      font-size: 12px;
+      color: #8e8e8e;
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+    .footer-copyright span {
+      cursor: pointer;
+    }
+    .footer-copyright span:hover {
+      text-decoration: underline;
+    }
+    /* instagram uses a very specific border radius on inputs */
+    .input-field {
+      border-radius: 6px; /* updated to match recent IG (they use 6px now) */
+    }
+    /* improve spacing */
+    .login-card {
+      border-radius: 8px; /* subtle rounding */
+    }
+    .signup-card {
+      border-radius: 8px;
+    }
+  </style>
+
+  <!-- micro detail: 'English' with down arrow? maybe not needed, but we can include a small icon to hint -->
+  <!-- i'll replace the footer copyright with a more accurate 'English' + (c) 2025 -->
+  <div class="footer-copyright" style="gap: 4px;">
+    <span>English <i class="fas fa-chevron-down" style="font-size: 8px; margin-left: 2px;"></i></span>
+    <span style="margin:0 4px;">© 2025 Instagram from Meta</span>
+  </div>
+
+  <!-- make the facebook login icon slightly larger and the text bold -->
+  <!-- also add meta business suite link? not necessary, footer links cover it -->
+</body>
+</html>
